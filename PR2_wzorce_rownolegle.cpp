@@ -9,7 +9,7 @@
 
 using namespace std;
 
-string text="123adek321mescam123adek321mescam321";
+string text="123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mesc";
 
 int find_pattern(string patt)
 {
@@ -41,16 +41,21 @@ return sum_patt;
 
 int main(int argc, char* argv[])
 {
-string pattern[2];
-int result[2];
+string pattern[4];
+int result[4];
 pattern[0]= "mescam";
 pattern[1]= "adek";
+pattern[2]= "12";
+pattern[3]= "21";
+clock_t start, stop;
+start = clock();
 #pragma omp parallel for 
-for(int i=0; i<2;i++)
+for(int i=0; i<4;i++)
 {
 	result[i]=find_pattern(pattern[i]);
-	cout<<"Watek"<<omp_get_thread_num()<<" Wynik: "<<result[i]<<endl;
+	printf("Wzorzec:%s Watek:%d Wynik:%d\n",pattern[i].c_str(),omp_get_thread_num(),result[i]);
 }
-
-cout<<result[0]<<" "<<result[1]<<endl;
+stop = clock();
+printf("Czas przetwarzania wynosi %f sekund\n",((double)(stop - start)/1000.0));
+	
 }
