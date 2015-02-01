@@ -19,12 +19,12 @@ int findPattern(string patt,string textCheck)
 {
 	int sum_patt=0;
 	bool check;
-	for(int i=0;i<=textCheck.length()-patt.length();i++)
+	for(unsigned int i=0;i<=textCheck.length()-patt.length();i++)
 	{
 		if(patt[0]==textCheck[i])
 		{
 			check=true;
-			for(int j=1;j<patt.length();j++)
+			for(unsigned int j=1;j<patt.length();j++)
 			{
 				if(patt[j]!=textCheck[i+j])
 				{
@@ -73,6 +73,7 @@ void readPatternFile()
 
 int main(int argc, char* argv[])
 {
+cout<<"Start"<<endl;
 int result[50];
 for(int i=0;i<50;i++) result[i]=0;
 readTextFile();
@@ -91,11 +92,11 @@ start = clock();
 	}
 
 stop = clock();
-
+/*
 for(int i=0; i<50;i++)
 {
 printf("Wzorzec:%s Wynik:%d\n",pattern[i].c_str(),result[i]);
 }
-printf("Czas przetwarzania wynosi %f sekund\n",((double)(stop - start)/1000.0));
-
+printf("Czas przetwarzania wynosi %f sekund\n",((double)(stop - start)/1000.0));*/
+cout<<((double)(stop - start)/1000.0)<<endl;
 }

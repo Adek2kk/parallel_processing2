@@ -15,12 +15,12 @@ int findPattern(string patt)
 {
 	int sum_patt=0;
 	bool check;
-	for(int i=0;i<=text.length()-patt.length();i++)
+	for(unsigned int i=0;i<=text.length()-patt.length();i++)
 	{
 		if(patt[0]==text[i])
 		{
 			check=true;
-			for(int j=1;j<patt.length();j++)
+			for(unsigned int j=1;j<patt.length();j++)
 			{
 				if(patt[j]!=text[i+j])
 				{
@@ -68,10 +68,11 @@ void readPatternFile()
 
 int main(int argc, char* argv[])
 {
+cout<<"Start"<<endl;
 int result[50];
 readTextFile();
 readPatternFile();
-
+cout<<"Dane wczytane"<<endl;
 clock_t start, stop;
 start = clock();
 for(int i=0; i<50;i++)
@@ -79,10 +80,12 @@ for(int i=0; i<50;i++)
 	result[i]=findPattern(pattern[i]);
 }
 stop = clock();
+/*
 for(int i=0; i<50;i++)
 {
 printf("Wzorzec:%s Wynik:%d\n",pattern[i].c_str(),result[i]);
 }
 printf("Czas przetwarzania wynosi %f sekund\n",((double)(stop - start)/1000.0));
-
+*/
+cout<<((double)(stop - start)/1000.0)<<endl;
 }
