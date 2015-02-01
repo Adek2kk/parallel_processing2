@@ -5,11 +5,12 @@
 #include <string>
 #include <iostream>
 #include <omp.h>
-
+#include <fstream>
 
 using namespace std;
 
-string text="123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mescam123adek321mescam321mescam123adek321mesc";
+string text="";
+string pattern[50];
 
 int find_pattern(string patt)
 {
@@ -38,19 +39,44 @@ int find_pattern(string patt)
 return sum_patt;
 }
 
+void readTextFile()
+{
+	ifstream textFile("text.txt");
+	string textLine="", textTemp="";
+	while (!textFile.eof()) 
+	{ 
+	  textFile >> textLine;
+	  textTemp = textTemp + " " + textLine;
+	}
+	textTemp.erase(0,4);
+	for(int i=0;i<1000;i++)
+	{
+		text = text + " " + textTemp;
+	}
+
+}
+void readPatternFile()
+{
+	ifstream textFile("pattern.txt");
+	string textLine="";
+	for(int i=0;i<50;i++)
+	{
+	  textFile >> textLine;
+	  pattern[i] = textLine;
+	}
+	pattern[0].erase(0,3);
+}
 
 int main(int argc, char* argv[])
 {
-string pattern[4];
-int result[4];
-pattern[0]= "mescam";
-pattern[1]= "adek";
-pattern[2]= "12";
-pattern[3]= "21";
+int result[50];
+readTextFile();
+readPatternFile();
+
 clock_t start, stop;
 start = clock();
 #pragma omp parallel for 
-for(int i=0; i<4;i++)
+for(int i=0; i<50;i++)
 {
 	result[i]=find_pattern(pattern[i]);
 	printf("Wzorzec:%s Watek:%d Wynik:%d\n",pattern[i].c_str(),omp_get_thread_num(),result[i]);

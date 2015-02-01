@@ -1,5 +1,6 @@
-// PR2_wzorce.cpp : Defines the entry point for the console application.
+// PR2_wzorce_jednokrotne.cpp: Okreœla punkt wejœcia dla aplikacji konsoli.
 //
+
 #include <stdio.h>
 #include <time.h>
 #include <string>
@@ -8,21 +9,21 @@
 
 using namespace std;
 
-string text="";
+string text[1000];
 string pattern[50];
 
-int findPattern(string patt)
+int findPattern(string patt,string textCheck)
 {
 	int sum_patt=0;
 	bool check;
-	for(int i=0;i<=text.length()-patt.length();i++)
+	for(int i=0;i<=textCheck.length()-patt.length();i++)
 	{
-		if(patt[0]==text[i])
+		if(patt[0]==textCheck[i])
 		{
 			check=true;
 			for(int j=1;j<patt.length();j++)
 			{
-				if(patt[j]!=text[i+j])
+				if(patt[j]!=textCheck[i+j])
 				{
 					check=false;
 					break;
@@ -50,7 +51,8 @@ void readTextFile()
 	textTemp.erase(0,4);
 	for(int i=0;i<1000;i++)
 	{
-		text = text + " " + textTemp;
+		text[i] = "";
+		text[i] = textTemp;
 	}
 
 }
@@ -69,16 +71,21 @@ void readPatternFile()
 int main(int argc, char* argv[])
 {
 int result[50];
+for(int i=0;i<50;i++) result[i]=0;
 readTextFile();
 readPatternFile();
-
+cout<<"Dane wczytane"<<endl;
 clock_t start, stop;
 start = clock();
-for(int i=0; i<50;i++)
+for(int j=0; j<1000; j++)
 {
-	result[i]=findPattern(pattern[i]);
+	for(int i=0; i<50;i++)
+	{
+		result[i]+=findPattern(pattern[i],text[j]);
+	}
 }
 stop = clock();
+
 for(int i=0; i<50;i++)
 {
 printf("Wzorzec:%s Wynik:%d\n",pattern[i].c_str(),result[i]);
